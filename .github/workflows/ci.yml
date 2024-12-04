@@ -1,0 +1,30 @@
+name: Playwright Tests CI
+
+on:
+  push:
+    branches:
+      - master  # ou main, dependendo da sua configuração
+  pull_request:
+    branches:
+      - master  # ou main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  # Versão do Node.js
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install  # Instalar os navegadores do Playwright
+
+      - name: Run Playwright tests
+        run: npx playwright test
