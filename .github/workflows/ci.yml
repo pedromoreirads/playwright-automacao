@@ -28,3 +28,10 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+
+      - name: Upload screenshots if tests fail
+        if: failure()  # Só executa esta etapa se o teste falhar
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshots/  # Caminho para o diretório onde as screenshots estão armazenadas
