@@ -1,0 +1,15 @@
+nano Dockerfile
+# Use uma imagem base oficial do Node.js
+FROM node:18
+
+# Defina o diretório de trabalho no container
+WORKDIR /app
+
+# Copie os arquivos do seu projeto para dentro do container
+COPY . .
+
+# Instale as dependências do projeto
+RUN npm install
+
+# Instale o Playwright e seus navegadores
+RUN npx playwright iCMD ["npx", "playwright", "test"]
