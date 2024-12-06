@@ -1,20 +1,25 @@
-import { test } from '@playwright/test';
+// tests/gmailLogin.spec.ts
+import { test, expect } from '@playwright/test';
 import { GmailLoginPage } from '../pageObjects/GmailLoginPage';
 
-test.describe('Teste de Login no Gmail Workspace', () => {
-  const email = 'd2017014103@unifei.edu.br';
-  const password = '#Moreir@1698';
+test('preencher e-mail e senha e clicar em próximo', async ({ page }) => {
+  // Criar uma instância da GmailLoginPage
+  const gmailLoginPage = new GmailLoginPage(page);
 
-  test('Teste 1: Acessar página inicial e clicar em "Fazer login"', async ({ page }) => {
-    const gmailLoginPage = new GmailLoginPage(page);
-    await gmailLoginPage.navigateToGmailWorkspace();
-   // await gmailLoginPage.clickLoginButton();
-  });
+  // Acessa a página de login
+  await page.goto('https://accounts.google.com/');
 
- /*test('Teste 2: Preencher e-mail, senha e efetuar login', async ({ page }) => {
-    const gmailLoginPage = new GmailLoginPage(page);
+  // Preenche o campo de e-mail e clica no botão "Próxima"
+  await gmailLoginPage.fillEmail('ppaulo1698@gmail.com');
+  await gmailLoginPage.clickNextButton();
 
-    // Realiza login
-    await gmailLoginPage.login(email, password);
-  });*/
+  // Verifica se o campo de senha está visível
+  await expect(gmailLoginPage.isPasswordFieldVisible()).toBeTruthy();
+
+  // Preenche o campo de senha e clica no botão "Próxima"
+  await gmailLoginPage.fillPassword('123456');
+  await gmailLoginPage.clickNextButton();
+
+  // Verifica a URL após o login
+  await expect(page).toHaveURL(/.*accounts.google.com/);
 });
