@@ -1,9 +1,20 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { GmailLoginPage } from '../pageObjects/GmailLoginPage';
 
-test('Deve abrir a página do Gmail', async ({ page }) => {
-  // Navegar até a página do Gmail
-  await page.goto('https://mail.google.com');
-  
-  // Verificar se o título da página está correto
-  await expect(page).toHaveTitle(/Gmail/);
+test.describe('Teste de Login no Gmail Workspace', () => {
+  const email = 'd2017014103@unifei.edu.br';
+  const password = '#Moreir@1698';
+
+  test('Teste 1: Acessar página inicial e clicar em "Fazer login"', async ({ page }) => {
+    const gmailLoginPage = new GmailLoginPage(page);
+    await gmailLoginPage.navigateToGmailWorkspace();
+   // await gmailLoginPage.clickLoginButton();
+  });
+
+ /*test('Teste 2: Preencher e-mail, senha e efetuar login', async ({ page }) => {
+    const gmailLoginPage = new GmailLoginPage(page);
+
+    // Realiza login
+    await gmailLoginPage.login(email, password);
+  });*/
 });

@@ -1,7 +1,9 @@
+// playwright.config.ts
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
+  timeout: 30000, // 60 segundos para cada teste
   use: {
-    headless: false, // Isso faz o navegador ser visível durante a execução dos testes
+    browserName: 'webkit',
   },
 });
