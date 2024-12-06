@@ -2,7 +2,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  timeout: 30000, // 60 segundos para cada teste
+  timeout: 15000, // 30 segundos para cada teste
   use: {
     browserName: 'webkit',
   },
