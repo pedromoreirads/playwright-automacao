@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -128,3 +129,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+=======
+node_modules/
+dist/
+.env
+*.log
+
+>>>>>>> 333022a (Initial commit - Setup Playwright with TypeScript, Git, and Docker)
