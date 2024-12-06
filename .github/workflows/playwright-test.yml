@@ -1,0 +1,39 @@
+name: Playwright Test Workflow
+
+on:
+  push:
+    branches:
+      - main  # Ou qualquer branch que você queira monitorar
+  pull_request:
+    branches:
+      - main  # Para rodar quando um PR for aberto para a branch main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Usando uma máquina virtual com Ubuntu
+
+    steps:
+      # Passo 1: Fazer o checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Passo 2: Configurar o Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Versão do Node.js, ajuste se necessário
+
+      # Passo 3: Instalar dependências do projeto
+      - name: Install dependencies
+        run: npm install
+
+      # Passo 4: Rodar os testes com Playwright
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      # Passo 5: Fazer upload de resultados dos testes (opcional)
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-results
