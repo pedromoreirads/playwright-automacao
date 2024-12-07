@@ -1,31 +1,48 @@
 import { Page } from 'playwright';
 
 export class GmailComposePage {
-  private page: Page;
-  private composeButton = '.T-I.T-I-KE.L3';
-  private toInput = '.oj .vO';
-  private subjectInput = '.aoT';
-  private bodyInput = '.Am.Al.editable.LW-avf.tS-tW';
-  private sendButton = '.T-I.J-J5-Ji.aoO.T-I-atl.L3';
+  page: Page;
+  private readonly composeButton = `button:has-text("Compor")`; // embora a busca por texto não seja a mais eficiente, não poucas vezes, é a melhor opção
+  //abaixo você vê a busca por xpath, que é uma das piores formas de buscar elementos, em termos de performance, mas uma das mais estáveis
+  private readonly toInput = `//*[text()='Para']//following::input)[1]`; // sempre use crase para armazenar as strings de locator; isso te poupa de problemas.
+  private readonly subjectInput = `//*[@aria-label='Assunto']`;
+  private readonly bodyInput = `//*[@aria-label='Corpo da Mensagem']`;
+  private readonly sendButton = `(//*[contains(@aria-label, 'Enviar')])[last()]`;
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  async composeEmail(to: string, subject: string, body: string) {
-    // Aguardar o botão de composição estar visível
-    await this.page.waitForSelector(this.composeButton, { timeout: 60000 });
-    await this.page.click(this.composeButton);
-
-    // Aguardar o campo "Para" estar visível
-    await this.page.waitForSelector(this.toInput, { timeout: 60000 });
-    await this.page.fill(this.toInput, to);
-
-    // Preencher o assunto e corpo do e-mail
-    await this.page.fill(this.subjectInput, subject);
-    await this.page.fill(this.bodyInput, body);
-
-    // Enviar o e-mail
-    await this.page.click(this.sendButton);
+  private async elementFromXpath(locator: string) {
+    return this.page.locator(`xpath=${locator}`);
   }
+
+  async clickOnComposeButton(){
+    await (await this.elementFromXpath(this.composeButton)).click();
+  }
+
+  async fillTo(to: string){
+    await (await this.elementFromXpath(this.toInput)).fill(to);
+  }
+
+  async fillSubject(subject: string){
+    await (await this.elementFromXpath(this.subjectInput)).fill(subject);
+  }
+
+  async fillBody(body: string){
+    await (await this.elementFromXpath(this.bodyInput)).fill(body);
+  }
+
+  async clickOnSendButton(){
+    await (await this.elementFromXpath(this.sendButton)).click();
+  }
+
+  async composeEmail(to: string, subject: string, body: string){
+    await this.clickOnComposeButton();
+    await this.fillTo(to);
+    await this.fillSubject(subject);
+    await this.fillBody(body);
+    await this.clickOnSendButton();
+  }
+  
 }

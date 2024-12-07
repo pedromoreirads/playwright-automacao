@@ -2,8 +2,12 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  timeout: 15000, // 30 segundos para cada teste
+  timeout: 9000, // 30 segundos para cada teste
+  expect: {timeout: 2000},
+  testDir: 'tests',
+  fullyParallel: true,
+  retries: 1,
   use: {
-    browserName: 'webkit',
+    browserName: 'chromium',
   },
 });

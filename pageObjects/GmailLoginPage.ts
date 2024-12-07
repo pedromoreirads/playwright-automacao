@@ -1,13 +1,17 @@
 import { Page } from '@playwright/test';
 
-export class GmailLoginPage {
-  private page: Page;
-  private emailField = 'input[type="email"]';
-  private nextButton = 'button:has-text("Next")'; // Versão em inglês do botão
-  private passwordField = 'input[type="Enter your password"]';
+export class GmailLoginPage{
+  page: Page;
+  private readonly emailField = 'input[type="email"]';
+  private readonly nextButton = 'button:has-text("Next")'; // Versão em inglês do botão
+  private readonly passwordField = 'input[type="password"]';
 
   constructor(page: Page) {
     this.page = page;
+  }
+
+  async goto(url: string) {
+    await this.page.goto(url);
   }
 
   // Método para preencher o e-mail
