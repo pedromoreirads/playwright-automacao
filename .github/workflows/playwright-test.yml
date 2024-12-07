@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main  # Ou qualquer branch que você queira monitorar
+      - teaching-automation  # Inclua a branch desejada
   pull_request:
     branches:
       - main  # Para rodar quando um PR for aberto para a branch main
+      - teaching-automation  # Inclua a branch desejada
 
 jobs:
   test:
