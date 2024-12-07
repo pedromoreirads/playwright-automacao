@@ -13,7 +13,7 @@ test.describe('Rotina de Login no Gmail', () => {
 
   test('Teste 1: Preencher o campo de e-mail e clicar em próximo', async ({ gmailLoginPage }) => {
     // Preencher o campo de e-mail
-    await gmailLoginPage.fillEmail('d2017014103@unifei.edu.br');
+    await gmailLoginPage.fillEmail('testeplaywrigt075@gmail.com');
     await gmailLoginPage.clickNextButton();
 
     // Verificar se o campo de senha aparece
@@ -22,11 +22,11 @@ test.describe('Rotina de Login no Gmail', () => {
 
   test('Teste 2: Preencher o campo de senha e clicar em próximo', async ({ gmailLoginPage }) => {
     // Simular o preenchimento do campo de e-mail antes
-    await gmailLoginPage.fillEmail('d2017014103@unifei.edu.br');
+    await gmailLoginPage.fillEmail('testeplaywrigt075@gmail.com');
     await gmailLoginPage.clickNextButton();
 
     // Preencher o campo de senha
-    await gmailLoginPage.fillPassword('#Moreir@1698');
+    await gmailLoginPage.fillPassword('Teste123456');
     await gmailLoginPage.clickNextButton();
 
     // Verificar a URL após login (geralmente contém "accounts.google.com")
